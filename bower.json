@@ -1,0 +1,30 @@
+{
+  "name": "scheduler",
+  "version": "1.0.0",
+  "authors": [
+    "David Hansen <hansede@gmail.com>"
+  ],
+  "description": "A coaching session appointment scheduler",
+  "main": "",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "AngularJS": "angular-latest#~1.5.0",
+    "angular-ui-calendar": "~1.0.1",
+    "angular-material": "~1.0.6"
+  },
+  "resolutions": {
+    "angular": "1.5.0"
+  }
+}
