@@ -33,14 +33,22 @@ gulp.task 'javascript', ->
 gulp.task 'css', ->
   gulp.src [
     'bower_components/angular-material/angular-material.css'
-    'src/stylus/**/*'
+
   ]
-    .pipe(gulp_replace(/\/images\//g, '/img/'))
-    .pipe gulp_if /[.]styl$/, stylus()
     .pipe css_nano()
     .pipe concat 'compress.min.css'
     .pipe gulp.dest 'dist/css'
     .pipe if_else is_livereload, live_reload
+
+gulp.task 'stylus', ->
+  gulp.src [
+    'src/stylus/**/*'
+  ]
+  .pipe stylus()
+  .pipe css_nano()
+  .pipe concat 'stylus.min.css'
+  .pipe gulp.dest 'dist/css'
+  .pipe if_else is_livereload, live_reload
 
 gulp.task 'html', ->
   gulp.src ['src/index.jade']
@@ -53,7 +61,7 @@ gulp.task 'html', ->
     .pipe gulp.dest 'dist/html'
     .pipe if_else is_livereload, live_reload
 
-gulp.task 'build', ['javascript', 'css', 'html']
+gulp.task 'build', ['javascript', 'css', 'html', 'stylus']
 
 gulp.task 'default', ->
   if is_livereload then live_reload()
@@ -64,7 +72,7 @@ gulp.task 'default', ->
   gulp.watch(['src/coffee/**/*'], ['javascript']).on 'change', (event) ->
     console.log("#{event.path} was #{event.type}")
 
-  gulp.watch(['src/stylus/**/*'], ['css']).on 'change', (event) ->
+  gulp.watch(['src/stylus/**/*'], ['stylus']).on 'change', (event) ->
     console.log("#{event.path} was #{event.type}")
 
   gulp.watch(['src/index.jade', 'src/jade/**/*'], ['html']).on 'change', (event) ->
