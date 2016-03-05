@@ -8,4 +8,16 @@ html
     title Coaching Scheduler
 
   body(ng-app='Scheduler', ng-controller='SchedulerCtrl', ng-cloak='')
-    h1 {{ hello }} World!
+    md-content
+      md-toolbar
+        .md-toolbar-tools
+          h2 Coaching Scheduler
+
+      section(layout='row', flex='')
+        .page-content
+            md-card
+              md-card-title
+                md-card-title-text
+                  span.md-headline Schedule Your Coaching Session
+              md-card-content
+                p hello
