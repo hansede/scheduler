@@ -13,7 +13,7 @@
         md-list-item(ng-repeat='time in available_times', ng-click='schedule(time)')
           md-icon access_time
           p {{ time | date:'h:mm a' }}
-          md-icon.md-accent arrow_forward
+          md-icon.md-primary arrow_forward
 
     .appointment-column(flex='33', ng-show='appointment_time')
       h4 3. Confirm
@@ -22,10 +22,11 @@
           md-card-title-text
             span.md-headline Your appointment
         md-card-content
-          p Dr. Whosit
+          p {{ client.coach.name }}
+          p {{ client.coach.phone }}
           p
             span {{ appointment_date | date:'fullDate' }} @&nbsp;
             b {{ appointment_time | date:'h:mm a' }}
-        md-card-actions(layout='row', layout-align='end center')
+        md-card-actions.confirm-actions(layout='row', layout-align='end center')
           md-button(ng-click='reset()') Start Over
-          md-button.md-raised.md-accent(ng-click='submit()') Confirm
+          md-button.md-raised.md-primary(ng-click='submit()') Confirm

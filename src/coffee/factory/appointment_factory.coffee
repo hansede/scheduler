@@ -14,5 +14,11 @@ window.factory.appointment ?= ['$http', ($http) ->
 
   update_available_times: (date) -> update_available_times(date)
 
-  submit: (appointment) -> $http.post '/api/appointment', {appointment_date: appointment}
+  submit: (appointment, client_id, coach_id) ->
+    params =
+      appointment_date: appointment
+      client_id: client_id
+      coach_id: coach_id
+
+    $http.post '/api/appointment', params
 ]

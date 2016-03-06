@@ -11,14 +11,14 @@ window.config.color ?= ['$mdThemingProvider', ($mdThemingProvider) ->
 
   $mdThemingProvider
     .theme('default')
-    .primaryPalette('grey',
-      default: '100',
-      'hue-1': '100',
-      'hue-2': '200',
-      'hue-3': '300'
-    )
-    .accentPalette('cyan-ish',
+    .primaryPalette('cyan-ish',
       default: '500'
     )
     .warnPalette('red')
+
+  $mdThemingProvider
+    .theme('grey-theme')
+    .primaryPalette('grey',
+      default: '100'
+    )
 ]

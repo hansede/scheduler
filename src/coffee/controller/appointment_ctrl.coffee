@@ -38,7 +38,7 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', '$filter', 'Appoi
     $scope.submit = ->
       $scope.submitting = yes
 
-      AppointmentFactory.submit($scope.appointment_time).then ->
+      AppointmentFactory.submit($scope.appointment_time, $scope.$parent.client.id, $scope.$parent.client.coach.id).then ->
         $scope.submitting = no
         formatted_date = $filter('date')($scope.appointment_date, 'fullDate')
         formatted_time = $filter('date')($scope.appointment_time, 'h:mm a')
@@ -47,10 +47,10 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', '$filter', 'Appoi
           $mdDialog.alert()
             .parent(angular.element(document.querySelector('body')))
             .clickOutsideToClose(yes)
-            .title('Success!')
-            .textContent("Your appointment has been scheduled for #{formatted_date} @ #{formatted_time}")
+            .title('Success')
+            .textContent("Your appointment has been scheduled.")
             .ariaLabel('Success Alert')
-            .ok('Got it!')
+            .ok('Okay')
         ).then -> $scope.reset()
 
       , ->
@@ -62,5 +62,5 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', '$filter', 'Appoi
           .title('Uh oh!')
           .textContent('We were unable to create your appointment, please try again.')
           .ariaLabel('Error Alert')
-          .ok('Will do!')
+          .ok('Okay')
 ]

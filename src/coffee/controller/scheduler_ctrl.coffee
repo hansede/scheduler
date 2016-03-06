@@ -3,6 +3,7 @@ window.ctrl ?= {}
 window.ctrl.scheduler ?= ['$scope', 'SchedulerFactory', ($scope, SchedulerFactory) ->
 
   $scope.username = window.profile.getName()
+  $scope.first_name = window.profile.getGivenName()
   $scope.avatar = window.profile.getImageUrl()
   $scope.client = SchedulerFactory.get_client()
 
