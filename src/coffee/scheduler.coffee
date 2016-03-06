@@ -6,3 +6,4 @@ angular.module('Scheduler', ['ngMaterial'])
   .controller('SchedulerCtrl', ctrl.scheduler)
 
   .factory('AppointmentFactory', factory.appointment)
+  .factory('SchedulerFactory', factory.scheduler)

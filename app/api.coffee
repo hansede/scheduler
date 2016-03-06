@@ -7,3 +7,7 @@ module.exports =
 
     appointment = require './routes/appointment'
     router.post '/api/appointment', appointment.post
+
+    client = require './routes/client'
+    router.get '/api/client/:id', client.get
+    router.post '/api/client', client.post
