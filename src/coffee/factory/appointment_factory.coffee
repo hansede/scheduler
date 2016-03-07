@@ -14,6 +14,8 @@ window.factory.appointment ?= ['$http', ($http) ->
 
   update_available_times: (date) -> update_available_times(date)
 
+  get_appointment: (client_id) -> $http.get("/api/client/#{client_id}/appointment")
+
   submit: (appointment, client_id, coach_id) ->
     params =
       appointment_date: appointment

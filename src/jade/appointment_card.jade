@@ -1,0 +1,9 @@
+md-card-title
+  md-card-title-text
+    span.md-headline Your appointment
+md-card-content
+  p {{ client.coach.name }}
+  p {{ client.coach.phone }}
+  p
+    span {{ appointment_time | date:'fullDate' }} @&nbsp;
+    b {{ appointment_time | date:'h:mm a' }}

@@ -1,13 +1,20 @@
 window.ctrl ?= {}
 
-window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', '$filter', 'AppointmentFactory',
-  ($scope, $mdDialog, $timeout, $filter, AppointmentFactory) ->
+window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFactory',
+  ($scope, $mdDialog, $timeout, AppointmentFactory) ->
 
+    $scope.is_scheduled = no
     $scope.submitting = no
     $scope.available_times = AppointmentFactory.get_available_times()
     $scope.appointment_date = undefined
     $scope.appointment_time = undefined
     today = new Date()
+
+    $scope.$watch '$parent.client.id', (new_value) ->
+      if new_value? and new_value.length
+        AppointmentFactory.get_appointment(new_value).then (result) ->
+          $scope.is_scheduled = yes
+          $scope.appointment_time = new Date(result.data.appointment_date)
 
     $scope.min_date = new Date(
       today.getFullYear(),
@@ -33,15 +40,14 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', '$filter', 'Appoi
       $scope.appointment_date = undefined
       $scope.appointment_time = undefined
       $scope.available_times.length = 0
+      $scope.is_scheduled = no
       $timeout(-> $scope.$apply())
 
     $scope.submit = ->
       $scope.submitting = yes
 
-      AppointmentFactory.submit($scope.appointment_time, $scope.$parent.client.id, $scope.$parent.client.coach.id).then ->
+      AppointmentFactory.submit($scope.appointment_time, $scope.$parent.client.id, $scope.$parent.client.coach.id).then((->
         $scope.submitting = no
-        formatted_date = $filter('date')($scope.appointment_date, 'fullDate')
-        formatted_time = $filter('date')($scope.appointment_time, 'h:mm a')
 
         $mdDialog.show(
           $mdDialog.alert()
@@ -51,9 +57,9 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', '$filter', 'Appoi
             .textContent("Your appointment has been scheduled.")
             .ariaLabel('Success Alert')
             .ok('Okay')
-        ).then -> $scope.reset()
+        ).then -> $scope.is_scheduled = yes
 
-      , ->
+      ), (->
         $scope.submitting = no
 
         $mdDialog.alert()
@@ -63,4 +69,5 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', '$filter', 'Appoi
           .textContent('We were unable to create your appointment, please try again.')
           .ariaLabel('Error Alert')
           .ok('Okay')
+      ))
 ]

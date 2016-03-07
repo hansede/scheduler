@@ -18,9 +18,4 @@ html
 
       section(layout='row', flex='')
         .page-content
-          md-card
-            md-card-title
-              md-card-title-text
-                span.md-headline {{ first_name }}, let's schedule your coaching session with {{ client.coach.name }}.
-            md-card-content
-              include jade/appointment
+          include jade/appointment
