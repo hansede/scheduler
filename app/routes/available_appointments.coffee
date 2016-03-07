@@ -16,7 +16,7 @@ module.exports =
   get_by_date: (req, res) ->
     date = round_date(new Date(parseInt(req.params.date)))
 
-    request "#{service_url}/api/appointment/date/#{date.getTime()}", (err, response, body) ->
+    request "#{service_url}/api/coach/#{req.params.coach_id}/appointment/date/#{date.getTime()}", (err, response, body) ->
       if err? or not body then return res.sendStatus(500)
       else if response.statusCode isnt 200 then return res.sendStatus(response.statusCode)
 

@@ -32,7 +32,7 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFacto
 
     $scope.on_calendar_change = ->
       $scope.appointment_time = undefined
-      AppointmentFactory.update_available_times($scope.appointment_date)
+      AppointmentFactory.update_available_times($scope.$parent.client.coach.id, $scope.appointment_date)
 
     $scope.schedule = (time) -> $scope.appointment_time = time
 
