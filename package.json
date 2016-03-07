@@ -4,7 +4,8 @@
   "description": "A coaching session appointment scheduler",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "postinstall": "bower install && gulp build"
   },
   "author": "David Hansen",
   "license": "ISC",
