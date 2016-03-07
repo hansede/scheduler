@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "postinstall": "bower install && gulp build"
+    "postinstall": "bower install && node node_modules/gulp/bin/gulp.js build"
   },
   "author": "David Hansen",
   "license": "ISC",
