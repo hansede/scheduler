@@ -1,9 +1,16 @@
 md-card-title
   md-card-title-text
     span.md-headline Your appointment
-md-card-content
-  p {{ client.coach.name }}
-  p {{ client.coach.phone }}
-  p
-    span {{ appointment_time | date:'fullDate' }} @&nbsp;
-    b {{ appointment_time | date:'h:mm a' }}
+md-card-content.your-appointment-content
+  md-list
+    md-list-item
+      img.md-avatar(ng-src='{{ client.coach.avatar }}')
+      p {{ client.coach.name }}
+    md-list-item
+      md-icon phone
+      p {{ client.coach.phone }}
+    md-list-item
+      md-icon access_time
+      p
+        span {{ appointment_time | date:'EEE, MMM d, y' }} @&nbsp;
+        b {{ appointment_time | date:'h:mm a' }}

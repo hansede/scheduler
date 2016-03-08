@@ -1,4 +1,4 @@
-angular.module('Scheduler', ['ngMaterial'])
+angular.module('Scheduler', ['ngMaterial', 'ngAnimate'])
 
   .config(config.color)
 

@@ -16,7 +16,7 @@ md-card.appointment.md-whiteframe-z2(ng-controller='AppointmentCtrl')
             md-button.md-raised.md-primary(ng-click='reset()') Reschedule?
 
     div(layout='row', layout-padding='', layout-margin='', ng-hide='is_scheduled')
-      .appointment-column.md-whiteframe-z1(flex='33')
+      .appointment-column.md-whiteframe-z1(flex='33', ng-hide='is_scheduled')
         div
           h4 1. Select a date
           md-datepicker(ng-model='appointment_date', ng-change='on_calendar_change()', md-placeholder='Select date',
