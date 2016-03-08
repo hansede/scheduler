@@ -35,23 +35,19 @@ gulp.task 'javascript', ->
 
 gulp.task 'css', ->
   gulp.src [
-    'bower_components/angular-material/angular-material.css'
-
+    'bower_components/angular-material/angular-material.min.css'
   ]
-    .pipe css_nano()
-    .pipe concat 'compress.min.css'
     .pipe gulp.dest 'dist/css'
-    .pipe if_else is_livereload, live_reload
 
 gulp.task 'stylus', ->
   gulp.src [
     'src/stylus/**/*'
   ]
-  .pipe stylus()
-  .pipe css_nano()
-  .pipe concat 'stylus.min.css'
-  .pipe gulp.dest 'dist/css'
-  .pipe if_else is_livereload, live_reload
+    .pipe stylus()
+    .pipe css_nano()
+    .pipe concat 'stylus.min.css'
+    .pipe gulp.dest 'dist/css'
+    .pipe if_else is_livereload, live_reload
 
 gulp.task 'html', ->
   gulp.src ['src/index.jade']
