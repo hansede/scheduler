@@ -5,3 +5,4 @@ dist/index.html
 dist/js/*
 dist/css/*
 dist/html/*
+.DS_Store
