@@ -2,11 +2,11 @@ md-toolbar.md-whiteframe-z1(md-theme='grey-theme')
   .md-toolbar-tools
     img.brand(src='https://arivale-corporate-site-media.s3.amazonaws.com/wp-content/uploads/2016/01/07010917/arivale-logo-wp.png')
     span(flex='')
-    span.username {{ username }}
+    span.username {{ user.username }}
 
     md-menu(md-position-mode='target-right target', md-offset='0 65')
       md-button.md-icon-button(aria-label='Open avatar menu', ng-click='$mdOpenMenu($event)')
-        img.avatar(ng-src='{{ avatar }}')
+        img.avatar(ng-src='{{ user.avatar }}')
       md-menu-content(width='3')
         md-menu-item
           md-button(ng-click='logout()')

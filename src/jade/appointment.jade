@@ -1,10 +1,10 @@
-md-card.appointment.md-whiteframe-z2(ng-controller='AppointmentCtrl')
+md-card.appointment.md-whiteframe-z2
   md-card-title
     md-card-title-text
       span.md-headline(ng-hide='is_scheduled')
-        | {{ first_name }}, let's schedule your coaching session with {{ client.coach.name }}.
+        | {{ user.first_name }}, let's schedule your coaching session with {{ client.coach.name }}.
       span.md-headline(ng-show='is_scheduled')
-        | {{ first_name }}, you have scheduled a coaching session with {{ client.coach.name }}.
+        | {{ user.first_name }}, you have scheduled a coaching session with {{ client.coach.name }}.
 
   md-card-content
 

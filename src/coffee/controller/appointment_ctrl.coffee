@@ -1,7 +1,10 @@
 window.ctrl ?= {}
 
-window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFactory',
-  ($scope, $mdDialog, $timeout, AppointmentFactory) ->
+window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFactory', 'ClientFactory',
+  ($scope, $mdDialog, $timeout, AppointmentFactory, ClientFactory) ->
+
+    $scope.client = ClientFactory.get()
+    ClientFactory.update($scope.user)
 
     $scope.is_scheduled = no
     $scope.is_submitting = no
@@ -10,7 +13,7 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFacto
     $scope.appointment_time = undefined
     today = new Date()
 
-    $scope.$watch '$parent.client.id', (new_value) ->
+    $scope.$watch 'client.id', (new_value) ->
       if new_value? and new_value.length
         AppointmentFactory.get_appointment(new_value).then (result) ->
           $scope.is_scheduled = yes
@@ -32,7 +35,7 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFacto
 
     $scope.on_calendar_change = ->
       $scope.appointment_time = undefined
-      AppointmentFactory.update_available_times($scope.$parent.client.coach.id, $scope.appointment_date)
+      AppointmentFactory.update_available_times($scope.client.coach.id, $scope.appointment_date)
 
     $scope.schedule = (time) -> $scope.appointment_time = time
 
@@ -48,8 +51,8 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFacto
 
       AppointmentFactory.submit(
           $scope.appointment_time,
-          $scope.$parent.client.id,
-          $scope.$parent.client.coach.id).then(
+          $scope.client.id,
+          $scope.client.coach.id).then(
         (->
           $scope.is_submitting = no
 

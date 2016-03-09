@@ -5,15 +5,15 @@ get_random_int = (min, max) -> (Math.floor(Math.random() * (max - min + 1)) + mi
 
 module.exports =
 
-  get: (req, res) ->
+  get_by_id: (req, res) ->
     request "#{env.service_url}/api/client/#{req.params.id}", (err, response, body) ->
-      if err? or not body then return res.sendStatus(500)
+      if err? or not body? then return res.sendStatus(500)
       else if response.statusCode isnt 200 then return res.sendStatus(response.statusCode)
       else
         client = JSON.parse(body)
 
         request "#{env.service_url}/api/coach/#{client.coach_id}", (err, response, body) ->
-          if err? or not body then return res.sendStatus(500)
+          if err? or not body? then return res.sendStatus(500)
           else if response.statusCode isnt 200 then return res.sendStatus(response.statusCode)
           else
             coach = JSON.parse(body)
@@ -33,7 +33,7 @@ module.exports =
     request.post "#{env.service_url}/api/client", params, (err, response, body) ->
       client_body = body
 
-      if err? or not body then return res.sendStatus(500)
+      if err? or not body? then return res.sendStatus(500)
 
       else if response.statusCode is 403
         res.status(201)
@@ -44,7 +44,7 @@ module.exports =
 
         # Get coaches and assign a coach
         request "#{env.service_url}/api/coach", (err, response, body) ->
-          if err? or not body then return res.sendStatus(500)
+          if err? or not body? then return res.sendStatus(500)
           else
             coaches = JSON.parse(body)
             if not coaches.length then return res.sendStatus(500)

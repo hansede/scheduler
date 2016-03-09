@@ -21,6 +21,8 @@ gulp.task 'javascript', ->
     'bower_components/angular-aria/angular-aria.js'
     'bower_components/angular-animate/angular-animate.js'
     'bower_components/angular-material/angular-material.js'
+    'bower_components/angular-route/angular-route.js'
+    'bower_components/angular-messages/angular-messages.js'
     'src/coffee/google_auth.coffee'
     'src/coffee/config/**/*'
     'src/coffee/controller/**/*'
