@@ -36,4 +36,6 @@ md-card.appointment.md-whiteframe-z2(ng-controller='AppointmentCtrl')
           include appointment_card
           md-card-actions(layout='row', layout-align='end center')
             md-button(ng-click='reset()') Start Over
-            md-button.md-raised.md-primary(ng-click='submit()') Confirm
+            md-button.md-raised.md-primary(ng-click='submit()', ng-disabled='is_submitting')
+              span(ng-hide='is_submitting') Confirm
+              span(ng-show='is_submitting') Submitting

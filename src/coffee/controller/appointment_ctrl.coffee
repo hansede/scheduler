@@ -4,7 +4,7 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFacto
   ($scope, $mdDialog, $timeout, AppointmentFactory) ->
 
     $scope.is_scheduled = no
-    $scope.submitting = no
+    $scope.is_submitting = no
     $scope.available_times = AppointmentFactory.get_available_times()
     $scope.appointment_date = undefined
     $scope.appointment_time = undefined
@@ -44,30 +44,34 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFacto
       $timeout(-> $scope.$apply())
 
     $scope.submit = ->
-      $scope.submitting = yes
+      $scope.is_submitting = yes
 
-      AppointmentFactory.submit($scope.appointment_time, $scope.$parent.client.id, $scope.$parent.client.coach.id).then((->
-        $scope.submitting = no
+      AppointmentFactory.submit(
+          $scope.appointment_time,
+          $scope.$parent.client.id,
+          $scope.$parent.client.coach.id).then(
+        (->
+          $scope.is_submitting = no
 
-        $mdDialog.show(
+          $mdDialog.show(
+            $mdDialog.alert()
+              .parent(angular.element(document.querySelector('body')))
+              .clickOutsideToClose(yes)
+              .title('Success')
+              .textContent("Your appointment has been scheduled.")
+              .ariaLabel('Success Alert')
+              .ok('Okay')
+          ).then -> $scope.is_scheduled = yes
+        ),
+        (->
+          $scope.is_submitting = no
+
           $mdDialog.alert()
             .parent(angular.element(document.querySelector('body')))
             .clickOutsideToClose(yes)
-            .title('Success')
-            .textContent("Your appointment has been scheduled.")
-            .ariaLabel('Success Alert')
+            .title('Uh oh!')
+            .textContent('We were unable to create your appointment, please try again.')
+            .ariaLabel('Error Alert')
             .ok('Okay')
-        ).then -> $scope.is_scheduled = yes
-
-      ), (->
-        $scope.submitting = no
-
-        $mdDialog.alert()
-          .parent(angular.element(document.querySelector('body')))
-          .clickOutsideToClose(yes)
-          .title('Uh oh!')
-          .textContent('We were unable to create your appointment, please try again.')
-          .ariaLabel('Error Alert')
-          .ok('Okay')
-      ))
+        ))
 ]
