@@ -29,6 +29,7 @@ module.exports =
         name: req.body.name
         email: req.body.email
         phone: req.body.phone
+        avatar: req.body.avatar
 
     request.post "#{env.service_url}/api/client", params, (err, response, body) ->
       client_body = body

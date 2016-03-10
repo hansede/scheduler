@@ -1,12 +1,14 @@
 window.ctrl ?= {}
 
-window.ctrl.coach_portal ?= ['$scope', '$mdDialog', 'CoachFactory', ($scope, $mdDialog, CoachFactory) ->
+window.ctrl.coach_portal ?= ['$scope', '$mdDialog', 'CoachFactory', 'AppointmentFactory',
+  ($scope, $mdDialog, CoachFactory, AppointmentFactory) ->
 
-  $scope.coach = CoachFactory.get()
-  CoachFactory.update($scope.user)
+    $scope.appointments = AppointmentFactory.get_appointments()
+    $scope.coach = CoachFactory.get()
 
-  $scope.$watchCollection 'coach', (new_value) ->
-    if new_value.id is ''
+    CoachFactory.update($scope.user).then ->
+      AppointmentFactory.update_appointments($scope.coach.id)
+    , ->
       $mdDialog.show(
         controller: 'PhoneDialogCtrl'
         templateUrl: '/html/template/phone_dialog.html'

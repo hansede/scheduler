@@ -10,6 +10,7 @@ window.factory.client ?= ['$http', ($http) ->
       name: user.username
       email: user.email
       phone: '(123) 456-7890'
+      avatar: user.avatar
 
     $http.post('/api/client', params).then (result) ->
       $http.get(result.data).then (client_result) ->
@@ -18,6 +19,7 @@ window.factory.client ?= ['$http', ($http) ->
         client.email = client_result.data.email
         client.phone = client_result.data.phone
         client.coach = client_result.data.coach
+        client.avatar = client_result.data.avatar
 
   get: -> client
 

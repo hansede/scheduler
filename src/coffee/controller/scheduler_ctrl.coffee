@@ -11,5 +11,6 @@ window.ctrl.scheduler ?= ['$scope', ($scope) ->
 
   $scope.logout = ->
     auth2 = gapi.auth2.getAuthInstance()
-    auth2.signOut().then -> window.location.reload()
+    auth2.signOut().then ->
+      window.location = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=#{window.location.href}"
 ]
