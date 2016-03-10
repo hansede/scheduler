@@ -3,12 +3,12 @@ md-card.coach-portal.md-whiteframe-z2
     md-card-title-text
       span.md-headline Welcome Coach {{ user.first_name }}, here are your appointments.
     md-card-title-media
-      md-input-container.md-block(md-no-float='')
+      md-input-container.md-block(md-no-float='', ng-show='appointments.length')
         md-icon search
         input(ng-model='appointment_filter', type='text', placeholder='Search by name')
 
   md-card-content
-    p(ng-hide='appointments.length') You have no scheduled appointments.
+    p.no-appointments(ng-hide='appointments.length') You have no scheduled appointments.
 
     md-list
       md-list-item.client-row(ng-repeat='appointment in appointments | filter: { client: { name: appointment_filter } }')
