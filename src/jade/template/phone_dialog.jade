@@ -1,15 +1,18 @@
 md-dialog.phone-dialog(aria-label='Phone entry dialog', ng-cloak='')
   form(name='phoneForm')
+
     md-dialog-content
       .md-dialog-content
         p
           div To register as a coach, please provide us with
           div the phone number where clients can reach you.
+
         md-input-container.md-block(flex='')
           label Phone Number
-          input(name='phone', ng-model='phone', ng-pattern='/[0-9]{3} [0-9]{3}-[0-9]{4}$/')
-          .hint ### ###-####
+          input(name='phone', ng-model='phone', ng-pattern='/^\\([0-9]{3}\\) [0-9]{3}-[0-9]{4}$/', md-autofocus='', required='')
+          .hint (###) ###-####
           div(ng-messages='phoneForm.phone.$error')
             div(ng-message='pattern') Please enter a valid phone number.
+
     md-dialog-actions(layout='row')
-      md-button.md-raised.md-primary(ng-click='submit_phone()') Submit
+      md-button.md-raised.md-primary(ng-click='submit_phone()', ng-disabled='phoneForm.$invalid') Submit
