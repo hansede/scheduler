@@ -69,12 +69,15 @@ window.ctrl.client ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFactory', 
         (->
           $scope.is_submitting = no
 
-          $mdDialog.alert()
-            .parent(angular.element(document.querySelector('body')))
-            .clickOutsideToClose(yes)
-            .title('Uh oh!')
-            .textContent('We were unable to create your appointment, please try again.')
-            .ariaLabel('Error Alert')
-            .ok('Okay')
-        ))
+          $mdDialog.show(
+            $mdDialog.alert()
+              .parent(angular.element(document.querySelector('body')))
+              .clickOutsideToClose(yes)
+              .title('Oops!')
+              .textContent('We were unable to create your appointment, please try again.')
+              .ariaLabel('Error Alert')
+              .ok('Okay')
+          )
+        )
+      )
 ]

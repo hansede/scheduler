@@ -15,11 +15,11 @@ get_by_coach = (req, res) ->
     else if response.statusCode isnt 200 then return res.sendStatus(response.statusCode)
     else
       appointments = JSON.parse(body)
-      add_clients appointments, req, res, (appointments) ->
+      add_clients_to_appointments appointments, req, res, (appointments) ->
         if appointments? then res.send(appointments)
         else res.sendStatus(500)
 
-add_clients = (appointments, req, res, callback) ->
+add_clients_to_appointments = (appointments, req, res, callback) ->
   promises = []
 
   for appointment in appointments
