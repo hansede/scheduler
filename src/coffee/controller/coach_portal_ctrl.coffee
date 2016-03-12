@@ -3,11 +3,11 @@ window.ctrl ?= {}
 window.ctrl.coach_portal ?= ['$scope', '$mdDialog', 'CoachFactory', 'AppointmentFactory',
   ($scope, $mdDialog, CoachFactory, AppointmentFactory) ->
 
-    $scope.appointments = AppointmentFactory.get_appointments()
+    $scope.appointments = AppointmentFactory.get()
     $scope.coach = CoachFactory.get()
 
     CoachFactory.update($scope.user).then ->
-      AppointmentFactory.update_appointments($scope.coach.id)
+      AppointmentFactory.update_scheduled($scope.coach.id)
     , ->
       $mdDialog.show(
         controller: 'PhoneDialogCtrl'

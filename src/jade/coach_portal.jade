@@ -1,17 +1,22 @@
 md-card.coach-portal.md-whiteframe-z2
+
   md-card-title
     md-card-title-text
-      span.md-headline Welcome Coach {{ user.first_name }}, here are your appointments.
+      span.md-headline
+        span Welcome Coach {{ user.first_name }}, you have&nbsp;
+        b {{ appointments.scheduled.length }}&nbsp;
+        span(ng-if='appointments.scheduled.length != 1') appointments.
+        span(ng-if='appointments.scheduled.length == 1') appointment.
     md-card-title-media
-      md-input-container.md-block(md-no-float='', ng-show='appointments.length')
+      md-input-container.md-block(md-no-float='', ng-show='appointments.scheduled.length')
         md-icon search
         input(ng-model='appointment_filter', type='text', placeholder='Search by name')
 
   md-card-content
-    p.no-appointments(ng-hide='appointments.length') You have no scheduled appointments.
+    p.no-appointments(ng-hide='appointments.scheduled.length') You have no scheduled appointments.
 
     md-list
-      md-list-item.client-row(ng-repeat='appointment in appointments | filter: { client: { name: appointment_filter } }')
+      md-list-item.client-row(ng-repeat='appointment in appointments.scheduled | filter: { client: { name: appointment_filter } }')
         img.md-avatar(ng-show='appointment.client.avatar', ng-src='{{ appointment.client.avatar }}')
         md-icon.md-avatar-icon(ng-hide='appointment.client.avatar') person
         p {{ appointment.client.name }}

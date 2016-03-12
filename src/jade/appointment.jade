@@ -1,4 +1,5 @@
 md-card.appointment.md-whiteframe-z2
+
   md-card-title
     md-card-title-text
       span.md-headline(ng-hide='is_scheduled')
@@ -9,6 +10,7 @@ md-card.appointment.md-whiteframe-z2
   md-card-content
 
     div.scheduled-row(layout='row', layout-padding='', layout-margin='', ng-show='is_scheduled')
+
       .your-appointment(flex='100', flex-gt-xs='75', flex-gt-sm='50', flex-gt-md='33')
         md-card
           include appointment_card
@@ -16,19 +18,22 @@ md-card.appointment.md-whiteframe-z2
             md-button.md-raised.md-primary(ng-click='reset()') Reschedule?
 
     div.unscheduled-row(layout='column', layout-gt-sm='row', layout-padding='', layout-margin='', ng-hide='is_scheduled')
+
       .appointment-column.md-whiteframe-z1(flex='100', flex-gt-sm='33', ng-hide='is_scheduled')
         div
           h4 1. Select a date
           md-datepicker(ng-model='appointment_date', ng-change='on_calendar_change()', md-placeholder='Select date',
               md-min-date='min_date', md-max-date='max_date', md-date-filter='weekdays_filter')
 
-      .appointment-column.md-whiteframe-z1(flex='100', flex-gt-sm='33', ng-show='available_times.length')
+      .appointment-column.md-whiteframe-z1(flex='100', flex-gt-sm='33', ng-show='appointments.available.length || appointments.none_available')
         h4 2. Select a time
-        md-list
-          md-list-item(ng-repeat='time in available_times', ng-click='schedule(time)')
+        md-list(ng-show='appointments.available.length')
+          md-list-item(ng-repeat='time in appointments.available', ng-click='schedule(time)')
             md-icon access_time
             p {{ time | date:'h:mm a' }}
             md-icon.md-primary arrow_forward
+        p(ng-show='appointments.none_available')
+          | We're sorry, there are no available appointments on {{ appointment_date | date:'longDate' }}. Please choose another date.
 
       .appointment-column.md-whiteframe-z1(flex='100', flex-gt-sm='33', ng-show='appointment_time')
         h4 3. Confirm

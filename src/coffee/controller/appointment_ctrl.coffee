@@ -8,7 +8,7 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFacto
 
     $scope.is_scheduled = no
     $scope.is_submitting = no
-    $scope.available_times = AppointmentFactory.get_available_times()
+    $scope.appointments = AppointmentFactory.get()
     $scope.appointment_date = undefined
     $scope.appointment_time = undefined
     today = new Date()
@@ -35,14 +35,14 @@ window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFacto
 
     $scope.on_calendar_change = ->
       $scope.appointment_time = undefined
-      AppointmentFactory.update_available_times($scope.client.coach.id, $scope.appointment_date)
+      AppointmentFactory.update_available($scope.client.coach.id, $scope.appointment_date)
 
     $scope.schedule = (time) -> $scope.appointment_time = time
 
     $scope.reset = ->
       $scope.appointment_date = undefined
       $scope.appointment_time = undefined
-      $scope.available_times.length = 0
+      $scope.appointments.available.length = 0
       $scope.is_scheduled = no
       $timeout(-> $scope.$apply())
 
