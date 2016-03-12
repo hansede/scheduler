@@ -1,6 +1,7 @@
 request = require 'request'
-env = require '../environment'
 Q = require 'q'
+env = require '../environment'
+reminder = require '../reminder'
 
 module.exports =
 
@@ -12,7 +13,6 @@ module.exports =
 
   get_by_coach: (req, res) ->
     request "#{env.service_url}/api/coach/#{req.params.coach_id}/appointment", (err, response, body) ->
-      debugger
       if err? or not body? then return res.sendStatus(500)
       else if response.statusCode isnt 200 then return res.sendStatus(response.statusCode)
       else
@@ -46,4 +46,14 @@ module.exports =
 
     request.post "#{env.service_url}/api/appointment", params, (err, response, body) ->
       if err? or not body? then return res.sendStatus(500)
-      else return res.sendStatus(response.statusCode)
+      else
+        request "#{env.service_url}/api/client/#{req.body.client_id}", (err, client_response, body) ->
+          if err? or not body? then return res.sendStatus(500)
+          else
+            client = JSON.parse(body)
+            request "#{env.service_url}/api/coach/#{req.body.coach_id}", (err, coach_response, body) ->
+              if err? or not body? then return res.sendStatus(500)
+              else
+                coach = JSON.parse(body)
+                reminder.send(client.email, client.name, coach.name, req.body.appointment_date)
+                res.sendStatus(response.statusCode)
