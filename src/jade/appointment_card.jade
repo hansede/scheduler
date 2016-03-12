@@ -4,7 +4,8 @@ md-card-title
 md-card-content.your-appointment-content
   md-list
     md-list-item
-      img.md-avatar(ng-src='{{ client.coach.avatar }}')
+      img.md-avatar(ng-show='client.coach.avatar', ng-src='{{ client.coach.avatar }}')
+      md-icon.md-avatar-icon(ng-hide='client.coach.avatar') person
       p {{ client.coach.name }}
     md-list-item
       md-icon phone

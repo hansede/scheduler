@@ -6,7 +6,8 @@ md-toolbar.md-whiteframe-z1(md-theme='grey-theme')
 
     md-menu(md-position-mode='target-right target', md-offset='0 65')
       md-button.md-icon-button(aria-label='Open avatar menu', ng-click='$mdOpenMenu($event)')
-        img.avatar(ng-src='{{ user.avatar }}')
+        img.avatar(ng-show='user.avatar', ng-src='{{ user.avatar }}')
+        md-icon(ng-hide='user.avatar') person
       md-menu-content(width='3')
         md-menu-item
           md-button(ng-click='logout()')
