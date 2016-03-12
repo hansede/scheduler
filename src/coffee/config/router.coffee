@@ -2,11 +2,11 @@ window.config ?= {}
 
 window.config.router ?= ['$routeProvider', ($routeProvider) ->
   $routeProvider
-    .when '/',
+    .when '/client',
       templateUrl: '/html/appointment.html'
       controller: 'AppointmentCtrl'
     .when '/coach',
       templateUrl: '/html/coach_portal.html'
       controller: 'CoachPortalCtrl'
-    .otherwise redirectTo: '/'
+    .otherwise redirectTo: '/client'
 ]
