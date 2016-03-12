@@ -28,6 +28,9 @@ window.factory.coach ?= ['$http', '$q', ($http, $q) ->
       $http.get(result.data).then (coach_result) ->
         $.extend(coach, coach_result.data)
 
+    , (response) ->
+      if response.status is 401 then window.logout()
+
   get: get
   update: update
   save: save

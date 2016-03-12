@@ -13,9 +13,13 @@ window.factory.client ?= ['$http', ($http) ->
       email: user.email
       avatar: user.avatar
 
-    $http.post('/api/client', params).then (result) ->
-      $http.get(result.data).then (client_result) ->
-        $.extend(client, client_result.data)
+    $http.post('/api/client', params).then (response) ->
+      $http.get(response.data).then (client_response) ->
+        $.extend(client, client_response.data)
+
+    , (response) ->
+      if response.status is 401 then window.logout()
+
 
   get: get
   update: update

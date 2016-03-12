@@ -1,5 +1,6 @@
 request = require 'request'
 env = require '../environment'
+google_validation = require '../google_validation'
 
 get_random_int = (min, max) -> (Math.floor(Math.random() * (max - min + 1)) + min)
 
@@ -20,43 +21,45 @@ get_by_id = (req, res) ->
           res.send(client)
 
 post = (req, res) ->
+  google_validation.validate req.body.google_id, (google_id) ->
+    if not google_id? then return res.sendStatus(401)
 
-  params =
-    form:
-      google_id: req.body.google_id
-      name: req.body.name
-      email: req.body.email
-      avatar: req.body.avatar
+    params =
+      form:
+        google_id: google_id
+        name: req.body.name
+        email: req.body.email
+        avatar: req.body.avatar
 
-  request.post "#{env.service_url}/api/client", params, (err, response, body) ->
-    client_body = body
+    request.post "#{env.service_url}/api/client", params, (err, response, body) ->
+      client_body = body
 
-    if err? or not body? then return res.sendStatus(500)
+      if err? or not body? then return res.sendStatus(500)
 
-    else if response.statusCode is 403
-      res.status(201)
-      res.send(body)
+      else if response.statusCode is 403
+        res.status(201)
+        res.send(body)
 
-    else if response.statusCode is 201
-      client_id = body.split('/').pop()
+      else if response.statusCode is 201
+        client_id = body.split('/').pop()
 
-      # Get coaches and assign a coach
-      request "#{env.service_url}/api/coach", (err, response, body) ->
-        if err? or not body? then return res.sendStatus(500)
-        else
-          coaches = JSON.parse(body)
-          if not coaches.length then return res.sendStatus(500)
-          coach = coaches[get_random_int(0, coaches.length - 1)] # Randomly assign a coach
-          params = form: client_id: client_id
+        # Get coaches and assign a coach
+        request "#{env.service_url}/api/coach", (err, response, body) ->
+          if err? or not body? then return res.sendStatus(500)
+          else
+            coaches = JSON.parse(body)
+            if not coaches.length then return res.sendStatus(500)
+            coach = coaches[get_random_int(0, coaches.length - 1)] # Randomly assign a coach
+            params = form: client_id: client_id
 
-          request.post "#{env.service_url}/api/coach/#{coach.id}/client", params, (err, response, body) ->
-            if err? then return res.sendStatus(500)
-            else if response.statusCode isnt 201 then return res.sendStatus(response.statusCode)
-            else
-              res.status(201)
-              res.send(client_body)
+            request.post "#{env.service_url}/api/coach/#{coach.id}/client", params, (err, response, body) ->
+              if err? then return res.sendStatus(500)
+              else if response.statusCode isnt 201 then return res.sendStatus(response.statusCode)
+              else
+                res.status(201)
+                res.send(client_body)
 
-    else res.sendStatus(response.statusCode)
+      else res.sendStatus(response.statusCode)
 
 module.exports =
   get_by_id: get_by_id
