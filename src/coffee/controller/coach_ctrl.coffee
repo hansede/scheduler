@@ -1,6 +1,6 @@
 window.ctrl ?= {}
 
-window.ctrl.coach_portal ?= ['$scope', '$mdDialog', 'CoachFactory', 'AppointmentFactory',
+window.ctrl.coach ?= ['$scope', '$mdDialog', 'CoachFactory', 'AppointmentFactory',
   ($scope, $mdDialog, CoachFactory, AppointmentFactory) ->
 
     $scope.appointments = AppointmentFactory.get()

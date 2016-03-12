@@ -3,8 +3,8 @@ angular.module('Scheduler', ['ngMaterial', 'ngAnimate', 'ngRoute', 'ngMessages']
   .config(config.color)
   .config(config.router)
 
-  .controller('AppointmentCtrl', ctrl.appointment)
-  .controller('CoachPortalCtrl', ctrl.coach_portal)
+  .controller('ClientCtrl', ctrl.client)
+  .controller('CoachCtrl', ctrl.coach)
   .controller('PhoneDialogCtrl', ctrl.phone_dialog)
   .controller('SchedulerCtrl', ctrl.scheduler)
 

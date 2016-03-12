@@ -1,4 +1,4 @@
-md-card.appointment.md-whiteframe-z2
+md-card.client.md-whiteframe-z2
 
   md-card-title
     md-card-title-text
@@ -13,7 +13,7 @@ md-card.appointment.md-whiteframe-z2
 
       .your-appointment(flex='100', flex-gt-xs='75', flex-gt-sm='50', flex-gt-md='33')
         md-card
-          include appointment_card
+          include ../template/appointment_card
           md-card-actions(layout='row', layout-align='end center')
             md-button.md-raised.md-primary(ng-click='reset()') Reschedule?
 
@@ -38,7 +38,7 @@ md-card.appointment.md-whiteframe-z2
       .appointment-column.md-whiteframe-z1(flex='100', flex-gt-sm='33', ng-show='appointment_time')
         h4 3. Confirm
         md-card
-          include appointment_card
+          include ../template/appointment_card
           md-card-actions(layout='row', layout-align='end center')
             md-button(ng-click='reset()') Start Over
             md-button.md-raised.md-primary(ng-click='submit()', ng-disabled='is_submitting')

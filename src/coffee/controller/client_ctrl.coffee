@@ -1,6 +1,6 @@
 window.ctrl ?= {}
 
-window.ctrl.appointment ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFactory', 'ClientFactory',
+window.ctrl.client ?= ['$scope', '$mdDialog', '$timeout', 'AppointmentFactory', 'ClientFactory',
   ($scope, $mdDialog, $timeout, AppointmentFactory, ClientFactory) ->
 
     $scope.client = ClientFactory.get()
