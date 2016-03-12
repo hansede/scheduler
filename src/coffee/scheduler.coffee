@@ -3,6 +3,7 @@ angular.module('Scheduler', ['ngMaterial', 'ngAnimate', 'ngRoute', 'ngMessages']
   .config(config.color)
   .config(config.router)
 
+  .controller('CalendarCtrl', ctrl.calendar)
   .controller('ClientCtrl', ctrl.client)
   .controller('CoachCtrl', ctrl.coach)
   .controller('PhoneDialogCtrl', ctrl.phone_dialog)
