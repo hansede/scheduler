@@ -11,7 +11,7 @@ window.ctrl.coach ?= ['$scope', '$mdDialog', 'CoachFactory', 'AppointmentFactory
     , ->
       $mdDialog.show(
         controller: 'PhoneDialogCtrl'
-        templateUrl: '/html/template/phone_dialog.html'
+        templateUrl: '/html/template/phone-dialog.html'
         parent: angular.element(document.body)
         clickOutsideToClose: no
       ).then (phone) ->

@@ -1,0 +1,8 @@
+h4 2. Select a time
+md-list(ng-show='appointments.available.length')
+  md-list-item(ng-repeat='time in appointments.available', ng-click='schedule(time)')
+    md-icon access_time
+    p {{ time | date:'h:mm a' }}
+    md-icon.md-primary arrow_forward
+p(ng-show='appointments.none_available')
+  | We're sorry, there are no available appointments on {{ appointment_date | date:'longDate' }}. Please choose another date.

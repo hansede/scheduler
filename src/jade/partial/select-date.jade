@@ -1,0 +1,4 @@
+div(ng-controller='CalendarCtrl')
+  h4 1. Select a date
+  md-datepicker(ng-model='$parent.appointment_date', ng-change='on_calendar_change()',
+  md-placeholder='Select date', md-min-date='min_date', md-max-date='max_date', md-date-filter='weekdays_filter')

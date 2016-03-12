@@ -11,10 +11,10 @@ html
     title Coaching Scheduler
 
   body
-    include jade/login
+    include jade/page/login
 
     md-content(ng-controller='SchedulerCtrl', ng-cloak='')
-      include jade/toolbar
+      include jade/partial/toolbar
 
       section(layout='row', flex='')
         .page-content.ng-view
