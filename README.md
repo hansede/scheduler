@@ -96,6 +96,12 @@ Body Parameters:
   - coach_id <UUID>
   - appointment_date: <ms since epoch>
 ```
+```
+DELETE /client/:client_id/appointment
+Codes: 204, 401, 404, 500
+URL Parameters:
+  - client_id <UUID>
+```
 
 #### Client
 ```
