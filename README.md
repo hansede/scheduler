@@ -36,6 +36,12 @@ The Coaching Scheduler has two routes:
 
 Navigating to the root URL will automatically redirect you to the Client Portal.
 
+Google Authentication only allows this web app to be accessed from predefined domains. The domains that have been defined for this web app are:
+* http://localhost:9999
+* http://coach.arivale.com:9999
+
+If you wish to access this web app from anywhere other than localhost, you will need to add *coach.arivale.com* to your hosts file, pointing at the IP address where the web app is running.
+
 ### Coach Portal
 The Coaching Scheduler comes preinstalled with two sample coaches, but you may wish to register your own user as a coach. To do so, follow these steps:
 
