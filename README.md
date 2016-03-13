@@ -62,11 +62,12 @@ The Coaching Scheduler has a resource-based public REST API that is intended for
 
 #### Available Appointments
 ```
-GET /coach/:coach_id/available-appointments/date/:date
+GET /coach/:coach_id/available-appointments?date=<date>
 Codes: 200, 401, 500
 Response: An array of timestamps (ms since epoch). These timestamps are filtered to the provided calendar date.
 URL Parameters:
   - coach_id <UUID>
+Query Parameters:
   - date <ms since epoch>
 ```
 

@@ -14,7 +14,7 @@ window.factory.appointment ?= ['$http', ($http) ->
   update_available = (coach_id, date) ->
     appointments.available.length = 0
 
-    $http.get("/api/coach/#{coach_id}/available-appointments/date/#{date.getTime()}").then (result) ->
+    $http.get("/api/coach/#{coach_id}/available-appointments?date=#{date.getTime()}").then (result) ->
       appointments.available.push.apply(appointments.available, result.data)
       appointments.none_available = result.data.length is 0
 
