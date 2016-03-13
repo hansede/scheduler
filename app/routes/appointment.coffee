@@ -49,7 +49,9 @@ post = (req, res) ->
 
   request.post "#{env.service_url}/api/appointment", params, (err, response, body) ->
     if err? or not body? then return res.sendStatus(500)
-    else send_reminder req, res, -> res.sendStatus(response.statusCode)
+    else send_reminder req, res, ->
+      res.status(response.statusCode)
+      res.send(body)
 
 send_reminder = (req, res, callback) ->
   request "#{env.service_url}/api/client/#{req.body.client_id}", (err, client_response, body) ->

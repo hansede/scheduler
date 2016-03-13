@@ -1,6 +1,5 @@
 request = require 'request'
 env = require '../environment'
-google_validation = require '../google_validation'
 
 get = (req, res) ->
   request "#{env.service_url}/api/coach?email=#{req.query.email}", (err, response, body) ->
@@ -19,23 +18,20 @@ get_by_id = (req, res) ->
     else res.send(JSON.parse(body))
 
 post = (req, res) ->
-  google_validation.validate req.body.google_id, (google_id) ->
-    if not google_id? then return res.sendStatus(401)
+  params =
+    form:
+      google_id: req.body.google_id
+      name: req.body.name
+      email: req.body.email
+      phone: req.body.phone
+      avatar: req.body.avatar
 
-    params =
-      form:
-        google_id: google_id
-        name: req.body.name
-        email: req.body.email
-        phone: req.body.phone
-        avatar: req.body.avatar
-
-    request.post "#{env.service_url}/api/coach", params, (err, response, body) ->
-      if err? or not body? then return res.sendStatus(500)
-      else if response.statusCode is 403 or response.statusCode is 201
-        res.status(201)
-        res.send(body)
-      else res.sendStatus(response.statusCode)
+  request.post "#{env.service_url}/api/coach", params, (err, response, body) ->
+    if err? or not body? then return res.sendStatus(500)
+    else if response.statusCode is 403 or response.statusCode is 201
+      res.status(201)
+      res.send(body)
+    else res.sendStatus(response.statusCode)
 
 module.exports =
   get: get

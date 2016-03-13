@@ -1,6 +1,5 @@
 request = require 'request'
 env = require '../environment'
-google_validation = require '../google_validation'
 
 get_random_int = (min, max) -> (Math.floor(Math.random() * (max - min + 1)) + min)
 
@@ -21,30 +20,27 @@ get_by_id = (req, res) ->
           res.send(client)
 
 post = (req, res) ->
-  google_validation.validate req.body.google_id, (google_id) ->
-    if not google_id? then return res.sendStatus(401)
+  params =
+    form:
+      google_id: req.body.google_id
+      name: req.body.name
+      email: req.body.email
+      avatar: req.body.avatar
 
-    params =
-      form:
-        google_id: google_id
-        name: req.body.name
-        email: req.body.email
-        avatar: req.body.avatar
+  request.post "#{env.service_url}/api/client", params, (err, response, body) ->
+    if err? or not body? then return res.sendStatus(500)
 
-    request.post "#{env.service_url}/api/client", params, (err, response, body) ->
-      if err? or not body? then return res.sendStatus(500)
+    else if response.statusCode is 403
+      res.status(201)
+      res.send(body)
 
-      else if response.statusCode is 403
+    else if response.statusCode is 201
+      client_id = body.split('/').pop()
+      randomly_assign_coach client_id, req, res, ->
         res.status(201)
         res.send(body)
 
-      else if response.statusCode is 201
-        client_id = body.split('/').pop()
-        randomly_assign_coach client_id, req, res, ->
-          res.status(201)
-          res.send(body)
-
-      else res.sendStatus(response.statusCode)
+    else res.sendStatus(response.statusCode)
 
 randomly_assign_coach = (client_id, req, res, callback) ->
   request "#{env.service_url}/api/coach", (err, response, body) ->
