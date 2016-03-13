@@ -55,12 +55,15 @@ You are now registered as a client and will be redirected to the Client Portal. 
 To schedule an appointment, simply follow the prompts. When you confirm your appointment, you will be sent a reminder email at the address associated with your Google account. Once you have scheduled an appointment, you will be allowed the opportunity to reschedule to any available time.
 
 ### API
-The Coaching Scheduler has a resource-based public REST API that is intended for use by the web application, but which can be called separately if desired. All of these API calls start from the */api* root URL.
+The Coaching Scheduler has a resource-based public REST API that is intended for use by the web application, but which can be called separately if desired. All API calls start from the */api* root URL and all API calls require the Authorization header:
+```
+'Authorization': 'Bearer <A Google OAuth token>'
+```
 
 #### Available Appointments
 ```
 GET /coach/:coach_id/available-appointments/date/:date
-Codes: 200, 500
+Codes: 200, 401, 500
 Response: An array of timestamps (ms since epoch). These timestamps are filtered to the provided calendar date.
 URL Parameters:
   - coach_id <UUID>
@@ -70,21 +73,21 @@ URL Parameters:
 #### Appointment
 ```
 GET /client/:client_id/appointment
-Codes: 200, 500
+Codes: 200, 401, 500
 Response: An appointment object
 URL Parameters:
   - client_id <UUID>
 ```
 ```
 GET /coach/:coach_id/appointment
-Codes: 200, 500
+Codes: 200, 401, 500
 Response: An array of appointment objects
 URL Parameters:
   - coach_id <UUID>
 ```
 ```
 POST /appointment
-Codes: 201, 500
+Codes: 201, 401, 500
 Response: URL of the newly created appointment
 Notes: This request also sends an email notification to the client's email address
 Body Parameters:
@@ -96,7 +99,7 @@ Body Parameters:
 #### Client
 ```
 GET /client/:id
-Codes: 200, 500
+Codes: 200, 401, 500
 Response: A client object with a coach sub-object
 URL Parameters:
   - id <UUID>
@@ -108,9 +111,7 @@ Response: URL of the newly created client
 Notes: 
   - If a client with the given email already exists, it will not be overwritten, but 201 will still be returned.
   - This request will randomly assign a coach to the client.
-  - 401 is returned if Google token validation fails.
 Body Parameters:
-  - google_id <A Google OAuth token>
   - name <string>
   - email <string>
   - avatar <URI> (optional)
@@ -119,14 +120,14 @@ Body Parameters:
 #### Coach
 ```
 GET /coach?email=<email>
-Codes: 200, 404, 500
+Codes: 200, 401, 404, 500
 Response: A coach object
 Query Parameters:
  - email <string>
 ```
 ```
 GET /coach/:id
-Codes: 200, 500
+Codes: 200, 401, 500
 Response: A coach object
 URL Parameters:
   - id <UUID>
@@ -137,9 +138,7 @@ Codes: 201, 401, 500
 Response: URL of a newly created coach
 Notes:
   - If a coach with the given email already exists, it will not be overwritten, but 201 will still be returned.
-  - 401 is returned if Google token validation fails.
 Body Parameters:
-  - google_id <A Google OAuth token>
   - name <string>
   - email <string>
   - phone <string>
