@@ -74,7 +74,7 @@ Query Parameters:
 #### Appointment
 ```
 GET /client/:client_id/appointment
-Codes: 200, 401, 500
+Codes: 200, 401, 404, 500
 Response: An appointment object
 URL Parameters:
   - client_id <UUID>
@@ -100,7 +100,7 @@ Body Parameters:
 #### Client
 ```
 GET /client/:id
-Codes: 200, 401, 500
+Codes: 200, 401, 404, 500
 Response: A client object with a coach sub-object
 URL Parameters:
   - id <UUID>
@@ -128,7 +128,7 @@ Query Parameters:
 ```
 ```
 GET /coach/:id
-Codes: 200, 401, 500
+Codes: 200, 401, 404, 500
 Response: A coach object
 URL Parameters:
   - id <UUID>
