@@ -62,7 +62,7 @@ send_reminder = (req, res, callback) ->
         if err? or not body? then return res.sendStatus(500)
         else
           coach = JSON.parse(body)
-          reminder.send(client.email, client.name, coach.name, req.body.appointment_date)
+          reminder.send(client, coach, req.body.appointment_date)
           callback()
 
 module.exports =
