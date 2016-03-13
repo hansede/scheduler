@@ -23,6 +23,8 @@ window.factory.appointment ?= ['$http', ($http) ->
       appointments.scheduled.length = 0
       appointments.scheduled.push.apply(appointments.scheduled, result.data)
 
+  cancel = (client_id) -> $http.delete("/api/client/#{client_id}/appointment")
+
   submit = (appointment, client_id, coach_id) ->
     params =
       appointment_date: appointment
@@ -35,5 +37,6 @@ window.factory.appointment ?= ['$http', ($http) ->
   get_appointment: get_appointment
   update_available: update_available
   update_scheduled: update_scheduled
+  cancel: cancel
   submit: submit
 ]

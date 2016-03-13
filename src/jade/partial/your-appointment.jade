@@ -1,4 +1,5 @@
 md-card
   include appointment-card
   md-card-actions(layout='row', layout-align='end center')
-    md-button.md-raised.md-primary(ng-click='reset()') Reschedule?
+    md-button.md-raised(ng-click='cancel()') Cancel
+    md-button.md-raised.md-primary(ng-click='reset()') Reschedule

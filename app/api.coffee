@@ -9,6 +9,7 @@ module.exports =
     router.get '/api/client/:client_id/appointment', appointment.get_by_client
     router.get '/api/coach/:coach_id/appointment', appointment.get_by_coach
     router.post '/api/appointment', appointment.post
+    router.delete '/api/client/:client_id/appointment', appointment.delete_by_client
 
     client = require './routes/client'
     router.get '/api/client/:id', client.get_by_id

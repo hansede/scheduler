@@ -65,7 +65,13 @@ send_reminder = (req, res, callback) ->
           reminder.send(client, coach, req.body.appointment_date)
           callback()
 
+delete_by_client = (req, res) ->
+  request.del "#{env.service_url}/api/client/#{req.params.client_id}/appointment", (err, response, body) ->
+    if err? then return res.sendStatus(500)
+    else res.sendStatus(response.statusCode)
+
 module.exports =
   get_by_client: get_by_client
   get_by_coach: get_by_coach
   post: post
+  delete_by_client: delete_by_client
