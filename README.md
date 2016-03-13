@@ -4,6 +4,7 @@ A coaching scheduler web app that allows registration of clients and coaches and
 
 ## Prerequisites
 * Install [Git] (https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) (you're on Github!)
+* Set up a [Google account](https://accounts.google.com/signup?hl=en) if you don't already have one
 * Install [Node.js](https://nodejs.org/en/download/)
 * Use npm to globally install gulp, bower, and coffee-script:
 ```
