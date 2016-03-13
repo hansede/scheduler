@@ -32,7 +32,7 @@ node server.js
 ### Routes
 The Coaching Scheduler has two routes:
 * The Client Portal: [http://localhost:9999/#/client](http://localhost:9999/#/client)
-* The Coach Portal: [http://localhost:9999/#/coach](http://localhost:9998/#/coach)
+* The Coach Portal: [http://localhost:9999/#/coach](http://localhost:9999/#/coach)
 
 Navigating to the root URL will automatically redirect you to the Client Portal.
 
